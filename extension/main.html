@@ -37,16 +37,21 @@
 				</fieldset>
 			</div>
 			
-			<fieldset data-role="controlgroup" data-type="horizontal" >
-				<legend>Environment:</legend>
-				<input type="radio" name="radio-env" id="radio-env-sandbox" value="https://sandbox.pwinty.com" checked="checked" />
-				<label for="radio-env-sandbox">Sandbox</label>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal" >
+					<legend>Environment:</legend>
+					<input type="radio" name="radio-env" id="radio-env-sandbox" value="https://sandbox.pwinty.com" checked="checked" />
+					<label for="radio-env-sandbox">Sandbox</label>
 
-				<input type="radio" name="radio-env" id="radio-env-live" value="https://api.pwinty.com"  />
-				<label for="radio-env-live">Live</label>
-			</fieldset>
+					<input type="radio" name="radio-env" id="radio-env-live" value="https://api.pwinty.com"  />
+					<label for="radio-env-live">Live</label>
+				</fieldset>
+			</div>
 			
-			<input type="submit" id="get-orders-button" value="Get Orders" />
+			<div data-role="fieldcontain">
+				<label for="get-orders-button"></label>
+				<input type="submit" id="get-orders-button" value="Get Orders" />
+			</div>
 			
 			<div id="error" ></div>
 			<div id="orders" ></div>
