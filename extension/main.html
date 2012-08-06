@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Pwinty Dashboard</title>
+    <meta content="text/html; charset=us-ascii" http-equiv="content-type" />
+    <meta name="Description" content="fast offline exif reader" />
+	<link rel="stylesheet" href="jqm/jquery.mobile-1.1.1.min.css" />
+	<script src="jqm/jquery-1.7.1.min.js"></script>
+	<script src="jqm/jquery.mobile-1.1.1.min.js"></script>
+	<script src="pwinty-dashboard.js"></script>
+</head>
+
+<body>
+
+	<div data-role="page">
+
+		<div data-role="header">
+			<h1>Pwinty Dashboard</h1>
+		</div>
+
+		<div data-role="content">	
+			<div data-role="fieldcontain" >
+				<label for="pwinty-id">Pwinty Merchant ID:</label>
+				<input type="text" name="pwinty-id" id="pwinty-id" value="" placeholder="pwinty-id"/>
+			</div>	
+			
+			<div data-role="fieldcontain">
+				<label for="pwinty-key">Pwinty Api Key:</label>
+				<input type="text" name="pwinty-key" id="pwinty-key" value="" placeholder="pwinty-key"/>
+			</div>
+			
+			<div data-role="fieldcontain">
+			    <fieldset data-role="controlgroup">
+				   <legend></legend>
+				   <input type="checkbox" name="save-keys" id="save-keys" class="custom"  checked="checked"/>
+				   <label for="save-keys">Remember me</label>
+				</fieldset>
+			</div>
+			
+			<fieldset data-role="controlgroup" data-type="horizontal" >
+				<legend>Environment:</legend>
+				<input type="radio" name="radio-env" id="radio-env-sandbox" value="https://sandbox.pwinty.com" checked="checked" />
+				<label for="radio-env-sandbox">Sandbox</label>
+
+				<input type="radio" name="radio-env" id="radio-env-live" value="https://api.pwinty.com"  />
+				<label for="radio-env-live">Live</label>
+			</fieldset>
+			
+			<input type="submit" id="get-orders-button" value="Get Orders" />
+			
+			<div id="error" ></div>
+			<div id="orders" ></div>
+		</div>
+
+	</div>
+
+</body>
+</html>
