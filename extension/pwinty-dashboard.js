@@ -38,6 +38,14 @@ function getOrders() {
 }
 
 function cancelOrder(orderId) {
+	updateOrderStatus(orderId, "Cancelled");
+}
+
+function submitOrder(orderId) {
+	updateOrderStatus(orderId, "Submitted");
+}
+
+function updateOrderStatus(orderId, newStatus) {
 	$('#error').empty();
 	$('#orders').empty();
 	var pwintyId = $('#pwinty-id').val();
@@ -49,7 +57,7 @@ function cancelOrder(orderId) {
 		type: 'POST',
 		data: {
 			id: orderId,
-			status: "Cancelled"
+			status: newStatus
 		},
 		beforeSend: function ( xhr ) {
 			xhr.setRequestHeader("X-Pwinty-MerchantId", pwintyId);
@@ -100,6 +108,13 @@ function appendOrderTable(orders, columns) {
 		cancelOrder(orderId);
 		return false;
 	});
+	
+	$('.submit-order-link').click(function(){
+		var id = $(this).attr('id');
+		var orderId = id.substring(13);
+		submitOrder(orderId);
+		return false;
+	});
 }
 
 function appendOrderRow(order, columns) {
@@ -118,7 +133,8 @@ function appendOrderRow(order, columns) {
 		}
 	}
 	if (order.status == 'NotYetSubmitted') {
-		rowString += '<td><a href="#" class="cancel-order-link" id="cancel-order-' + order.id + '">Cancel Order</a></td>';
+		rowString += '<td><a href="#" class="cancel-order-link" id="cancel-order-' + order.id + '">Cancel Order</a>';
+		rowString += ' or <a href="#" class="submit-order-link" id="submit-order-' + order.id + '">Submit Order</a></td>';
 	} else {
 		rowString += '<td></td>';
 	}
