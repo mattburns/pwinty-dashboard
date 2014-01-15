@@ -1,8 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
 	$('#get-orders-button').click(getOrders);
-	$('#pwinty-id').val(localStorage.pwintyDashboardPwintyId);
-	$('#pwinty-key').val(localStorage.pwintyDashboardPwintyKey);
+	$('input[type=radio]').change(loadKeys);
+    loadKeys();
 });
+
+function getEnv() {
+    return $('input:radio[name=radio-env]:checked').attr('id') == "radio-env-live" ? "live" : "sandbox";
+}
+
+function loadKeys() {
+	$('#pwinty-id').val(localStorage["pwintyDashboardPwintyId" + getEnv()]);
+	$('#pwinty-key').val(localStorage["pwintyDashboardPwintyKey" + getEnv()]);
+}
+
+function saveKeys() {
+	var id = $('#pwinty-id').val();
+	var key = $('#pwinty-key').val();
+	localStorage["pwintyDashboardPwintyId" + getEnv()] = id;
+	localStorage["pwintyDashboardPwintyKey" + getEnv()] = key;
+}
 
 function getOrders() {
 	$('#error').empty();
@@ -11,8 +27,7 @@ function getOrders() {
 	var pwintyKey = $('#pwinty-key').val();
 	if (pwintyId && pwintyKey) {
 		if ($('#save-keys').val()) {
-			localStorage.pwintyDashboardPwintyId = pwintyId;
-			localStorage.pwintyDashboardPwintyKey = pwintyKey;
+            saveKeys();
 		}
 	} else {
 		$('#error').html("No keys entered");
@@ -27,7 +42,7 @@ function getOrders() {
 			xhr.setRequestHeader("X-Pwinty-REST-API-Key", pwintyKey);
 		}
 	}).done(function ( orders ) {
-		var columns = ['id', 'status', 'recipientName', 'address1',  'address2',  'addressTownOrCity',  'stateOrCounty',  'postalOrZipCode',  'country',  'photos' ];
+		var columns = ['id', 'status', 'recipientName', 'address1',  'address2',  'addressTownOrCity',  'stateOrCounty',  'postalOrZipCode',  'countryCode',  'photos' ];
 		appendOrderTable(orders, columns);
 	}).fail(function(error) { 
 		$('#error').append("Urgh, epic fail. " + error.statusText + " " + error.responseText);
@@ -53,10 +68,9 @@ function updateOrderStatus(orderId, newStatus) {
 	
 	$.mobile.showPageLoadingMsg();
 	$.ajax({
-		url: $('input:radio[name=radio-env]:checked').val() + "/Orders/Status",
+		url: $('input:radio[name=radio-env]:checked').val() + "/Orders/" + orderId + "/Status",
 		type: 'POST',
 		data: {
-			id: orderId,
 			status: newStatus
 		},
 		beforeSend: function ( xhr ) {

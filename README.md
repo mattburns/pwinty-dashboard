@@ -1,7 +1,7 @@
 pwinty-dashboard
 ================
 
-Chrome plugin for easy administration of your pwinty orders
+Chrome plugin for easy administration of your Pwinty orders. Uses v2 of the Pwinty API
 
 [Install the plugin here](https://chrome.google.com/webstore/detail/ammefooaekoicegnkdmmcomeajkknlkp)
 

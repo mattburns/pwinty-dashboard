@@ -1,1 +1,4 @@
 extension.zip
+*~
+*.swp
+.DS_Store

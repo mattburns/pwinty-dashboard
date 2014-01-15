@@ -1,0 +1,7 @@
+<project name="MyProject" default="all" basedir=".">
+
+  <target name="all">
+    <delete file="extension.zip"/>
+    <zip destfile="extension.zip" basedir="extension" excludes="**svn**" />
+  </target>
+</project>
