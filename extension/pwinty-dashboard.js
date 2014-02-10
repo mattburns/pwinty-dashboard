@@ -62,7 +62,6 @@ function submitOrder(orderId) {
 
 function updateOrderStatus(orderId, newStatus) {
 	$('#error').empty();
-	$('#orders').empty();
 	var pwintyId = $('#pwinty-id').val();
 	var pwintyKey = $('#pwinty-key').val();
 	
@@ -78,7 +77,8 @@ function updateOrderStatus(orderId, newStatus) {
 			xhr.setRequestHeader("X-Pwinty-REST-API-Key", pwintyKey);
 		}
 	}).done(function () {
-		$('#orders').append("Done");
+        $('#order-row-' + orderId + ' .order-links').text("Done");
+        $('#order-row-' + orderId + ' td.cell-status').text(newStatus);
 	}).fail(function(error) { 
 		$('#error').append("Urgh, epic fail. " + error.statusText + " " + error.responseText);
 		console.log(error);
@@ -132,7 +132,7 @@ function appendOrderTable(orders, columns) {
 }
 
 function appendOrderRow(order, columns) {
-	var rowString = '<tr>';
+	var rowString = '<tr id="order-row-' + order.id + '">';
 	for (var i = 0; i < columns.length; i++) {
 		if (columns[i] == 'photos') {
 			if (order.photos.length > 0) {
@@ -143,11 +143,11 @@ function appendOrderRow(order, columns) {
 				rowString += '<td>none</td>';
 			}
 		} else {
-			rowString += '<td>' + order[columns[i]] + '</td>';
+			rowString += '<td class="cell-' + columns[i] + '">' + order[columns[i]] + '</td>';
 		}
 	}
 	if (order.status == 'NotYetSubmitted') {
-		rowString += '<td><a href="#" class="cancel-order-link" id="cancel-order-' + order.id + '">Cancel Order</a>';
+		rowString += '<td class="order-links"><a href="#" class="cancel-order-link" id="cancel-order-' + order.id + '">Cancel Order</a>';
 		rowString += ' or <a href="#" class="submit-order-link" id="submit-order-' + order.id + '">Submit Order</a></td>';
 	} else {
 		rowString += '<td></td>';
