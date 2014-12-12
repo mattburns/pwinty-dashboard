@@ -42,7 +42,7 @@ function getOrders() {
 			xhr.setRequestHeader("X-Pwinty-REST-API-Key", pwintyKey);
 		}
 	}).done(function ( orders ) {
-		var columns = ['id', 'status', 'recipientName', 'address1',  'address2',  'addressTownOrCity',  'stateOrCounty',  'postalOrZipCode',  'countryCode',  'photos' ];
+		var columns = ['id', 'status', 'recipientName', 'address1',  'address2',  'addressTownOrCity',  'stateOrCounty',  'postalOrZipCode',  'countryCode', 'destinationCountryCode', 'price', 'qualityLevel', 'photos' ];
 		appendOrderTable(orders, columns);
 	}).fail(function(error) { 
 		$('#error').append("Urgh, epic fail. " + error.statusText + " " + error.responseText);
