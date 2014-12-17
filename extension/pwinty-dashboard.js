@@ -88,11 +88,11 @@ function updateOrderStatus(orderId, newStatus) {
 }
 
 function appendOrderTable(orders, columns) {
-	var tableString = '<h2>Orders</h2><table id="orders-table">';
+	var tableString = '<h2>Orders</h2><div style="overflow:auto;"><table id="orders-table">';
 	for (var i = 0; i < columns.length; i++) {
 		tableString += '<th>' + columns[i] + '</th>';
 	}
-	tableString += '</tr></table>';
+	tableString += '</tr></table></div>';
 
 	$('#orders').append(tableString);
 	
